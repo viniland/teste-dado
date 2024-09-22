@@ -197,15 +197,22 @@
 
     // girar o dado
     function rollDice() {
-        const randomX = Math.floor(Math.random() * 360);
-        const randomY = Math.floor(Math.random() * 360);
+        const outcomes = [
+                { x: 0, y: 0 },   // 1
+                { x: 90, y: 0 },  // 2
+                { x: 180, y: 0 }, // 3
+                { x: 270, y: 0 }, // 4
+                { x: 0, y: 90 },  // 5
+                { x: 0, y: 180 }, // 6
+            ];
 
-        rotateX = randomX;
-        rotateY = randomY;
+            const outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
 
-        quadrado.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            rotateX = outcome.x;
+            rotateY = outcome.y;
+
+            quadrado.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     }
-
     document.getElementById('rollButton').addEventListener('click', rollDice);
 
     //  arrastar o dado 
