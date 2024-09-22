@@ -16,19 +16,21 @@
         }
 
         .top-text {
-            width: 60%;
+            width: 36%;
             text-align: center;
-            padding: 10px;
-            font-size: 45px;
+            padding: 15px;
+            font-size: 5vw;
             position: absolute;
             top: 3%;
             color: #ff0000;
             background-color: rgba(255, 255, 255, 0.8);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-bottom: 2px solid #ddd;
+            font-weight: bold;
+            border-radius: 20px;
         }
 
-        /* Responsividade para texto */
+        
         @media (max-width: 600px) {
             .top-text {
                 font-size: 18px;
@@ -38,8 +40,10 @@
 
         /* Design do dado */
         .quadrado {
-            width: 200px;
-            height: 200px;
+            width: 25vw;
+            height: 25vw;
+            max-width: 200px;
+            max-height: 200px;
             position: relative;
             transform-style: preserve-3d;
             transform: rotateX(45deg) rotateY(45deg);
@@ -63,38 +67,41 @@
         /* Faces do dado */
         .inner {
             background-color: green;
-            transform: translateX(-100px) rotateY(90deg);
+            transform: translateX(-100px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(90deg) rotateZ(0deg);
+
         }
 
         .inner2 {
             background-color: orange;
-            transform: translateY(-100px) rotateX(90deg);
+            transform: translateX(0px) translateY(-100px) translateZ(0px) rotateX(90deg) rotateY(0deg) rotateZ(0deg);
         }
 
         .inner3 {
             background-color: lightgreen;
-            transform: translateX(100px) rotateY(90deg);
+            transform: translateX(100px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(90deg) rotateZ(0deg);
         }
 
         .inner4 {
             background-color: gold;
-            transform: translateZ(100px);
+            transform: translateX(0px) translateY(0px) translateZ(100px);
         }
 
         .inner5 {
             background-color: cyan;
-            transform: translateZ(-100px);
+            transform: translateX(0px) translateY(0px) translateZ(-100px);
         }
 
         .inner6 {
             background-color: purple;
-            transform: translateY(100px) rotateX(90deg);
+            transform: translateX(0px) translateY(100px) translateZ(0px) rotateX(90deg) rotateY(0deg) rotateZ(0deg);
         }
 
         /* Bolas brancas */
         .innerdiv {
-            width: 30px;
-            height: 30px;
+            width: 7vw;
+            height: 7vw;
+            max-width: 30px;
+            max-height: 30px;
             background-color: white;
             border: solid black 5px;
             border-radius: 50%;
@@ -127,13 +134,14 @@
          /* Botão */
          button {
          background-color: rgb(202, 208, 188); 
-        width: 150px;
+        width: 30vw;
+        max-width: 150px;
         text-align: center;
         padding: 10px;
-        font-size: 20px;
+        font-size: 2.5vw;
         position: relative;
         margin-top: 90px; 
-        color: #ff0000;
+        color: #040404;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border: none;
         cursor: pointer;
@@ -197,22 +205,28 @@
 
     // girar o dado
     function rollDice() {
-        const outcomes = [
-                { x: 0, y: 0 },   // 1
-                { x: 90, y: 0 },  // 2
-                { x: 180, y: 0 }, // 3
-                { x: 270, y: 0 }, // 4
-                { x: 0, y: 90 },  // 5
-                { x: 0, y: 180 }, // 6
-            ];
+    const outcomes = [
+        { x: 0, y: 0 },    
+        { x: 90, y: 0 },   
+        { x: 180, y: 0 },  
+        { x: 0, y: 90 },   
+        { x: 0, y: 180 }, 
+        { x: 270, y: 0 }, 
+        { x: 0, y: -90 }   
+    ];
 
-            const outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+    let previousOutcome = `${rotateX},${rotateY}`;
+    let outcome;
 
-            rotateX = outcome.x;
-            rotateY = outcome.y;
+    do {
+        outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+    } while (previousOutcome === `${outcome.x},${outcome.y}`);
 
-            quadrado.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    }
+    rotateX = outcome.x;
+    rotateY = outcome.y;
+
+    quadrado.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+}
 
     document.getElementById('rollButton').addEventListener('click', rollDice);
 
