@@ -267,8 +267,8 @@ function rollDice() {
     lastFace = randomOutcome.face;
 
     // Variação aleatória nas rotações para que o dado não pareça viciado
-    const randomOffsetX = (Math.random() - 0.5) * 30; // Adiciona até +/-10 graus de variação
-    const randomOffsetY = (Math.random() - 0.5) * 30; // Adiciona até +/-10 graus de variação
+    const randomOffsetX = (Math.random() - 0.5) * 20; // Adiciona até +/-10 graus de variação
+    const randomOffsetY = (Math.random() - 0.5) * 20; // Adiciona até +/-10 graus de variação
 
     // Atualiza as rotações
     rotateX = randomOutcome.x + randomOffsetX;
