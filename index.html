@@ -244,35 +244,40 @@
 
     <script>
      const quadrado = document.querySelector('.quadrado');
-        let rotateX = 0, rotateY = 0;
-        let lastFace = null;  // Para evitar repetição
+let rotateX = 0, rotateY = 0;
+let lastFace = null;  // Para evitar repetição
 
-        function rollDice() {
-            const outcomes = [
-                { face: 1, x: 0, y: 0 },      // Frente
-                { face: 2, x: -90, y: 0 },    // Cima
-                { face: 3, x: 0, y: 90 },     // Esquerda
-                { face: 4, x: 0, y: -90 },    // Direita
-                { face: 5, x: 0, y: 180 },    // Atrás
-                { face: 6, x: 90, y: 0 }      // Baixo
-            ];
+function rollDice() {
+    const outcomes = [
+        { face: 1, x: 0, y: 0 },      // Frente
+        { face: 2, x: -90, y: 0 },    // Cima
+        { face: 3, x: 0, y: 90 },     // Esquerda
+        { face: 4, x: 0, y: -90 },    // Direita
+        { face: 5, x: 0, y: 180 },    // Atrás
+        { face: 6, x: 90, y: 0 }      // Baixo
+    ];
 
-            let randomOutcome;
+    let randomOutcome;
 
-            
-            do {
-                randomOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
-            } while (randomOutcome.face === lastFace);
+    // Garantir que o número da face não seja repetido consecutivamente
+    do {
+        randomOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+    } while (randomOutcome.face === lastFace);
 
-            lastFace = randomOutcome.face;
+    lastFace = randomOutcome.face;
 
-        
-            rotateX = randomOutcome.x;
-            rotateY = randomOutcome.y;
+    // Variação aleatória nas rotações para que o dado não pareça viciado
+    const randomOffsetX = (Math.random() - 0.5) * 30; // Adiciona até +/-10 graus de variação
+    const randomOffsetY = (Math.random() - 0.5) * 30; // Adiciona até +/-10 graus de variação
 
-            
-            quadrado.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        }
+    // Atualiza as rotações
+    rotateX = randomOutcome.x + randomOffsetX;
+    rotateY = randomOutcome.y + randomOffsetY;
+
+    // Aplicar a transformação
+    quadrado.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+}
+
 
     document.getElementById('rollButton').addEventListener('click', rollDice);
 
